@@ -2,8 +2,10 @@ import React, { Component } from 'react';
 
 import Invoice from 'components/Invoice/Invoice'
 import SavedInvoice from 'components/Invoice/SavedInvoice';
+import Data from './data'
 
 class IndexComponent extends Component {
+  //this component holds an array of invoices and 
   constructor(props) {
     super(props);
     this.state= {
@@ -11,14 +13,15 @@ class IndexComponent extends Component {
     }
   }
 
+  //add invoice to state here
   addInvoice(invoice,date){
-    console.log('addInvoice this',this,'date',date)
+    //console.log('addInvoice this',this,'date',date)
     invoice.date = date;
     var newInvoices= this.state.invoices.concat(invoice)
     this.setState({
       invoices:newInvoices
-      })
-    console.log('addedInvoice',this)
+    })
+    //console.log('addedInvoice',this)
   }
 
   render() {
@@ -28,56 +31,9 @@ class IndexComponent extends Component {
       );
     }
 
-    var data = [
-      {
-        productName:'notebook',
-        defaultPrice:1
-      },
-      {
-        productName:'car',
-        defaultPrice:20000
-      },
-       {
-        productName:'computer',
-        defaultPrice:800
-      },
-       {
-        productName:'toy',
-        defaultPrice:3.50
-      },
-       {
-        productName:'computer mouse pad',
-        defaultPrice:35
-      },
-       {
-        productName:'notepad',
-        defaultPrice:3
-      },
-       {
-        productName:'bookbag',
-        defaultPrice:30
-      },
-       {
-        productName:'computer mouse',
-        defaultPrice:3
-      },
-       {
-        productName:'toy mouse',
-        defaultPrice:3
-      },
-       {
-        productName:'toy car',
-        defaultPrice:3
-      },
-       {
-        productName:'computer keybourd',
-        defaultPrice:39
-      }
-    ]
-
-
-    console.log('index this',this)
-
+    //grab all the data from data.js
+    var data = Data.returnData();
+    //console.log('index this',this)
     return (
       <section>
         <h2>Click to add Invoice</h2>

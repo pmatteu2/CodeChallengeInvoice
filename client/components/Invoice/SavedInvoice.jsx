@@ -1,12 +1,13 @@
 import React, { Component } from 'react';
 import Lineitem from './Lineitem';
 
+
+//in this component i loop over all the invoices and add a button for them to be displayed
 class SavedInvoice extends Component {
-
-
-
+  
+  //add event listeners to each invoice
   componentDidMount(){
-      console.log('PJPJPJP')
+      //console.log('PJPJPJP')
       var dialog = document.getElementById("invoice"+this.props.index);
       document.getElementById('show'+this.props.index).onclick = function() {
           dialog.show();
@@ -20,12 +21,13 @@ class SavedInvoice extends Component {
     return (Number(quantity)*Number(price)).toFixed(2)
   }
 
-    handleShowDialog(event){
-      event.preventDefault();
-    }
+  handleShowDialog(event){
+    event.preventDefault();
+  }
+
+  //loop through line items can calculate total cost on invoice
   calculateInvoiceTotal(){
     var total=0;
-    
     for (var i = 0 ; i < this.props.invoice.lineitems.length; i++){
       total = total + Number(this.props.invoice.lineitems[i].price)*Number(this.props.invoice.lineitems[i].quantity)
     }
@@ -34,23 +36,21 @@ class SavedInvoice extends Component {
 
 
   render() {
-      //var that = this;
-
-      console.log('pj',this)
+      //if i had more time i would have not used inline style so much
       return (
        <div>
             <dialog id={"invoice"+this.props.index} style = {{width:700}}>
              
-          Customer Name:
+          {'Customer Name: '}
           <span>
             {this.props.invoice.customerName}
           </span>
-          <div>date:
+          <div>{'Date: '}
             <span>
               {this.props.invoice.date}
             </span>
           </div>
-          <div>Invoice Number:
+          <div>{'Invoice Number: '}
             <span>
               {this.props.invoice.invoiceNumber}
             </span>
@@ -58,10 +58,9 @@ class SavedInvoice extends Component {
             <div>
                 <h4>Line Items</h4>
                 <div>
-                  
                   {
                     this.props.invoice.lineitems.map(function(item,index){
-                      console.log('item',item)
+                      //console.log('item',item)
                       return (
                           <div>
                             <span style = 

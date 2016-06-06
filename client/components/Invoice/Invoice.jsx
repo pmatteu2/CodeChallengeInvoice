@@ -7,13 +7,14 @@ class Invoice extends Component {
   constructor(props) {
     super(props);
     this.state = {
-    name:'Hello!',
-    
-   
     }
     //console.log('the beginning',this)
   }
+  //runs before render
   componentWillMount(){
+    //set default values when form opens, date does not work on 2nd open if its changed.
+    //i regret setting up the invoice info object like this, it made updating it very complicated
+    //would just save them seperately and add them together later if i did it again
     this.setState({
       invoiceInfo:{
         customerName:"",
@@ -24,14 +25,27 @@ class Invoice extends Component {
     })
 
   }
-  
-  // getInitialState() {
-  //   return {value: 'Hello!'};
-  // }
-  handleAddLineitem(index) {
+  //runs after render
+  //add event listeners
+  componentDidMount(){
+   // console.log('PJPJPJP')
+    var dialog = document.getElementById('window');
+    document.getElementById('show').onclick = function() {
+        dialog.show();
+    };
+     document.getElementById('exit').onclick = function() {
+        dialog.close();
+    };
+     document.getElementById('addInvoice').onclick = function() {
+        dialog.close(); 
+    };
+  }
+
+  //when add Item is clicked, add it to the invoice
+  handleAddLineitem(index,event) {
     var array = Array.prototype.slice.call(arguments) 
     //console.log('add arguments',arguments)
-    array[1].preventDefault();
+    event.preventDefault();
     //console.log(this,'hi',this)
     var newLineitems = this.state.invoiceInfo.lineitems.concat(this.props.products[index])
     //console.log('something weird is going on',newLineitems)
@@ -44,40 +58,9 @@ class Invoice extends Component {
     })
     //console.log('after',this.props.INVOICE)
     var array = Array.prototype.slice.call(arguments) 
-    
   }
 
-  resetInvoiceState(){
-    console.log('pjpj123',this)
-    this.setState({
-    // name:'Hello!',
-    
-   
-    // invoiceInfo:{
-    //   customerName:"",
-    //   invoiceNumber:'',
-    //   lineitems:[]
-    //   },
-    //   date:'2016-06-05'
-   })
-    //console.log('pjpj1234',this)
-
-  }
-  componentDidMount(){
-   // console.log('PJPJPJP')
-    var dialog = document.getElementById('window');
-    document.getElementById('show').onclick = function() {
-        dialog.show();
-    };
-     document.getElementById('exit').onclick = function() {
-        dialog.close();
-
-    };
-     document.getElementById('addInvoice').onclick = function() {
-        dialog.close();
-      
-    };
-  }
+  //when name is typed, update state
   handleNameChange(event) {
     //console.log('holly',event)
    // this.setState({name: event.target.value});
@@ -90,14 +73,13 @@ class Invoice extends Component {
     })
   }
 
+  //when submit is hit, add invoice to array of invoices by calling function from index
   handleSubmit(event) {
-   // console.log(event)
     event.preventDefault();
-    //console.log('submit',event)
-    //console.log('this',this)
     this.props.addInvoice.call(this.props.that,this.state.invoiceInfo,this.state.date)
-    //this.resetInvoiceState()
   }
+
+  //when you click create invoice, reset the values to defaults
   handleShowDialog(event){
     event.preventDefault();
     this.setState({
@@ -105,14 +87,14 @@ class Invoice extends Component {
         customerName:"",
         invoiceNumber:'',
         lineitems:[]
-      }
+      },
+      date: '2016-06-05'
+
     })
    
   }
 
-  handleSearchChange(event){
-    this.setState({search: event.target.value});
-  }
+  //when invoice number is changed change state
   handleInvoiceNumberChange(event){
     this.setState({
       invoiceInfo:{
@@ -122,11 +104,14 @@ class Invoice extends Component {
       }
     })
   }
+
+  //when date is changed, change state
   handleDateChange(event){
     //console.log('dateChange',event.target.value)
     this.setState({date:event.target.value})
   }
 
+  //when quantity is typed in, change state
   changeLineitemQuantity(quantity,index){
     // console.log('cliq',this)
     // console.log(arguments)
@@ -141,6 +126,7 @@ class Invoice extends Component {
     })
   }
 
+  //when price is typed in change state
   changeLineitemPrice(price,index){
     //console.log('clip',this)
     var tempLineitems = this.state.invoiceInfo.lineitems.slice();
@@ -157,78 +143,69 @@ class Invoice extends Component {
 
 
   render() {
-
-    //console.log('pj',this)
+    //if i had more time i would have not used inline style so much
     return (
      <div>
-          <dialog id="window" style = {{width:700}}>
-           <form>
-        Customer Name:
-        <input
-          type="text"
-          defaultValue = {this.state.invoiceInfo.customerName}
-          value={this.state.invoiceInfo.customerName}
-          onChange={this.handleNameChange.bind(this)}
-        />
-        <div> Date:
-          <input
-            type = 'date'
-            defaultValue = '2016-06-05'
-            value = {this.state.date}
-            onChange = {this.handleDateChange.bind(this)}
-          />
-        </div>
-        <div>Invoice Number:
+      <dialog id="window" style = {{width:700}}>
+        <form>
+          Customer Name:
           <input
             type="text"
-            value={this.state.invoiceInfo.invoiceNumber}
-            defaultValue = {this.state.invoiceInfo.invoiceNumber}
-            lable = 'Invoice Number:'
-            onChange={this.handleInvoiceNumberChange.bind(this)}
+            defaultValue = {this.state.invoiceInfo.customerName}
+            value={this.state.invoiceInfo.customerName}
+            onChange={this.handleNameChange.bind(this)}
           />
-        </div>
+          <div> Date:
+            <input
+              type = 'date'
+              defaultValue = '2016-06-05'
+              value = {this.state.date}
+              onChange = {this.handleDateChange.bind(this)}
+            />
+          </div>
+          <div>Invoice Number:
+            <input
+              type="text"
+              value={this.state.invoiceInfo.invoiceNumber}
+              defaultValue = {this.state.invoiceInfo.invoiceNumber}
+              lable = 'Invoice Number:'
+              onChange={this.handleInvoiceNumberChange.bind(this)}
+            />
+          </div>
+          <div>
+            <Search products = {this.props.products} 
+                    handleAddLineitem = {this.handleAddLineitem}
+                    INVOICE = {this}
+            />
+              <div>
+                {
+                  this.state.invoiceInfo.lineitems.map(function(item,index){
+                    return (
+                        <Lineitem 
+                        item = {item} 
+                        index = {index}
+                        changeLineitemPrice = {this.changeLineitemPrice}
+                        changeLineitemQuantity = {this.changeLineitemQuantity}
+                        invoice = {this}
+                        />
+                      )
+                  }.bind(this))
+                }
+              </div>
+              </div>
+          <input 
+            id = 'addInvoice'
+            type="submit" 
+            value="Save Invoice"
+            onClick = {this.handleSubmit.bind(this)}
+          />
+        </form>
         <div>
-          <Search products = {this.props.products} 
-                  handleAddLineitem = {this.handleAddLineitem}
-                  INVOICE = {this}
-          />
-            <div>
-              <input
-                type="text"
-                value={this.props.value}
-                lable = 'Name'
-                onChange={this.handleSearchChange.bind(this)}
-              />
-              
-              {
-                this.state.invoiceInfo.lineitems.map(function(item,index){
-                  return (
-                      <Lineitem 
-                      item = {item} 
-                      index = {index}
-                      changeLineitemPrice = {this.changeLineitemPrice}
-                      changeLineitemQuantity = {this.changeLineitemQuantity}
-                      invoice = {this}
-                      />
-                    )
-                }.bind(this))
-              }
-            </div>
-            </div>
-        <input 
-          id = 'addInvoice'
-          type="submit" 
-          value="Save Invoice"
-          onClick = {this.handleSubmit.bind(this)}
-        />
-      </form>
-      <div>
-      </div>
-            <button id="exit" onClick = {this.handleShowDialog.bind(this)}>Exit</button>
-          </dialog>
-          <button id="show" onClick = {this.handleShowDialog.bind(this)}>Create Invoice</button>
-       </div>
-        
+        </div>
+        <button id="exit" onClick = {this.handleShowDialog.bind(this)}>Exit</button>
+      </dialog>
+      <button id="show" onClick = {this.handleShowDialog.bind(this)}>Create Invoice</button>
+    </div>     
     );
   }
 }
