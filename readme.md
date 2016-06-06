@@ -1,3 +1,10 @@
+I ended up using a boilerplate to save time
+
+to get started
+-npm install
+-npm start
+-visit localhost:3001
+
 # react-webpack-boilerplate [![Build Status][travis-badge]][travis] [![Coverage Status][coveralls-badge]][coveralls]
 > Simple production-ready boilerplate for [React](http://facebook.github.io/react/) and [Webpack](http://webpack.github.io/) (SASS and React hot reloading) and tests with Jest.
 

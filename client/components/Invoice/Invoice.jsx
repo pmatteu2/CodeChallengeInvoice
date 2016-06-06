@@ -11,7 +11,7 @@ class Invoice extends Component {
     
    
     }
-    console.log('the beginning',this)
+    //console.log('the beginning',this)
   }
   componentWillMount(){
     this.setState({
@@ -30,19 +30,21 @@ class Invoice extends Component {
   // }
   handleAddLineitem(index) {
     var array = Array.prototype.slice.call(arguments) 
-    console.log('add arguments',arguments)
+    //console.log('add arguments',arguments)
     array[1].preventDefault();
-    console.log(this,'hi',this.props.INVOICE)
-    var newLineitems = this.props.INVOICE.state.invoiceInfo.lineitems.concat(this.props.INVOICE.props.products[index])
-    console.log('something weird is going on',newLineitems)
-    this.props.INVOICE.setState({
+    //console.log(this,'hi',this)
+    var newLineitems = this.state.invoiceInfo.lineitems.concat(this.props.products[index])
+    //console.log('something weird is going on',newLineitems)
+    this.setState({
       invoiceInfo:{
-        customerName:this.props.INVOICE.state.invoiceInfo.customerName,
-        invoiceNumber:this.props.INVOICE.state.invoiceInfo.invoiceNumber,
+        customerName:this.state.invoiceInfo.customerName,
+        invoiceNumber:this.state.invoiceInfo.invoiceNumber,
         lineitems:newLineitems
       }
     })
-    console.log('after',this.props.INVOICE)
+    //console.log('after',this.props.INVOICE)
+    var array = Array.prototype.slice.call(arguments) 
+    
   }
 
   resetInvoiceState(){
@@ -58,11 +60,11 @@ class Invoice extends Component {
     //   },
     //   date:'2016-06-05'
    })
-    console.log('pjpj1234',this)
+    //console.log('pjpj1234',this)
 
   }
   componentDidMount(){
-    console.log('PJPJPJP')
+   // console.log('PJPJPJP')
     var dialog = document.getElementById('window');
     document.getElementById('show').onclick = function() {
         dialog.show();
@@ -89,11 +91,10 @@ class Invoice extends Component {
   }
 
   handleSubmit(event) {
-    console.log(event)
+   // console.log(event)
     event.preventDefault();
-
-    console.log('submit',event)
-    console.log('this',this)
+    //console.log('submit',event)
+    //console.log('this',this)
     this.props.addInvoice.call(this.props.that,this.state.invoiceInfo,this.state.date)
     //this.resetInvoiceState()
   }
@@ -106,18 +107,13 @@ class Invoice extends Component {
         lineitems:[]
       }
     })
-    // var dialog = document.getElementById('window');
-    // document.getElementById('show').onclick = function() {
-    //     dialog.show();
-    // };
+   
   }
 
   handleSearchChange(event){
     this.setState({search: event.target.value});
   }
   handleInvoiceNumberChange(event){
-    // this.setState({invoiceNumber: event.target.value});
-
     this.setState({
       invoiceInfo:{
         customerName:this.state.invoiceInfo.customerName,
@@ -127,13 +123,13 @@ class Invoice extends Component {
     })
   }
   handleDateChange(event){
-    console.log('dateChange',event.target.value)
+    //console.log('dateChange',event.target.value)
     this.setState({date:event.target.value})
   }
 
   changeLineitemQuantity(quantity,index){
-    console.log('cliq',this)
-    console.log(arguments)
+    // console.log('cliq',this)
+    // console.log(arguments)
     var tempLineitems = this.state.invoiceInfo.lineitems.slice();
     tempLineitems[index].quantity = quantity
     this.setState({
@@ -146,7 +142,7 @@ class Invoice extends Component {
   }
 
   changeLineitemPrice(price,index){
-    console.log('clip',this)
+    //console.log('clip',this)
     var tempLineitems = this.state.invoiceInfo.lineitems.slice();
     tempLineitems[index].price = price
     this.setState({
@@ -161,9 +157,8 @@ class Invoice extends Component {
 
 
   render() {
-    //var that = this;
 
-    console.log('pj',this)
+    //console.log('pj',this)
     return (
      <div>
           <dialog id="window" style = {{width:700}}>
@@ -227,6 +222,8 @@ class Invoice extends Component {
           onClick = {this.handleSubmit.bind(this)}
         />
       </form>
+      <div>
+      </div>
             <button id="exit" onClick = {this.handleShowDialog.bind(this)}>Exit</button>
           </dialog>
           <button id="show" onClick = {this.handleShowDialog.bind(this)}>Create Invoice</button>

@@ -52,8 +52,8 @@ class Lineitem extends Component {
 			        value = {this.state.price}
 			        onChange={this.handlePriceChange.bind(this)}
 			    />
-			    Total:
-			    <span>
+			    <span style = {{float:'right'}}>
+			    	Total:
 			    	${this.calculateItemTotal.call(this)}
 			    </span>
 

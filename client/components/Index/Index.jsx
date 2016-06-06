@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import Checkbox from 'components/Checkbox/CheckboxWithLabel';
+
 import Invoice from 'components/Invoice/Invoice'
 import SavedInvoice from 'components/Invoice/SavedInvoice';
 
@@ -46,7 +46,7 @@ class IndexComponent extends Component {
         defaultPrice:3.50
       },
        {
-        productName:'abcdefg',
+        productName:'computer mouse pad',
         defaultPrice:35
       },
        {
@@ -68,6 +68,10 @@ class IndexComponent extends Component {
        {
         productName:'toy car',
         defaultPrice:3
+      },
+       {
+        productName:'computer keybourd',
+        defaultPrice:39
       }
     ]
 
@@ -78,6 +82,7 @@ class IndexComponent extends Component {
       <section>
         <h2>Click to add Invoice</h2>
        <h4>(you will need to click exit or another action to leave each box you open)</h4>
+       <div>also this app uses a new HTML5 element that i think is only works in chrome</div>
         <div></div>
         {this.state.invoices.map(function(invoice,index){
           return (

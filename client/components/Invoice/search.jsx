@@ -75,7 +75,7 @@ class Search extends Component {
                       	<button 
                       		type = 'button'
                       		className='addItem' 
-                      		onClick = {this.props.handleAddLineitem.bind(this,index)} 
+                      		onClick = {this.props.handleAddLineitem.bind(this.props.INVOICE,index)} 
                       		value = 'Add Item'
                       		>addItem
                       		</button>
