@@ -1,6 +1,6 @@
 I ended up using a boilerplate to save time
 
-to get started
+to get started clone repository and run
 
 ```sh
 $ npm install
