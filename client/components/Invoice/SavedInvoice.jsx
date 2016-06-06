@@ -4,7 +4,7 @@ import Lineitem from './Lineitem';
 
 //in this component i loop over all the invoices and add a button for them to be displayed
 class SavedInvoice extends Component {
-  
+
   //add event listeners to each invoice
   componentDidMount(){
       //console.log('PJPJPJP')
@@ -99,7 +99,7 @@ class SavedInvoice extends Component {
               </div>
               <button id={"exit"+this.props.index} onClick = {this.handleShowDialog.bind(this)}>Exit</button>
             </dialog>
-            <button id={"show"+this.props.index} onClick = {this.handleShowDialog.bind(this)}>invoice {this.props.index}</button>
+            <button id={"show"+this.props.index} onClick = {this.handleShowDialog.bind(this)}>invoice {this.props.index+1}</button>
          </div>
           
       );
