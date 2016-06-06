@@ -1,8 +1,11 @@
 I ended up using a boilerplate to save time
 
 to get started
-npm install
-npm start
+
+```sh
+$ npm install
+$ npm start
+```
 visit localhost:3001
 
 
