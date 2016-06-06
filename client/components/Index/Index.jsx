@@ -11,8 +11,9 @@ class IndexComponent extends Component {
     }
   }
 
-  addInvoice(invoice){
-    console.log('addInvoice this',this)
+  addInvoice(invoice,date){
+    console.log('addInvoice this',this,'date',date)
+    invoice.date = date;
     var newInvoices= this.state.invoices.concat(invoice)
     this.setState({
       invoices:newInvoices
@@ -29,15 +30,43 @@ class IndexComponent extends Component {
 
     var data = [
       {
-        productName:'item1',
+        productName:'notebook',
         defaultPrice:1
       },
       {
-        productName:'item2',
-        defaultPrice:2
+        productName:'car',
+        defaultPrice:20000
       },
        {
-        productName:'item3',
+        productName:'computer',
+        defaultPrice:800
+      },
+       {
+        productName:'toy',
+        defaultPrice:3.50
+      },
+       {
+        productName:'abcdefg',
+        defaultPrice:35
+      },
+       {
+        productName:'notepad',
+        defaultPrice:3
+      },
+       {
+        productName:'bookbag',
+        defaultPrice:30
+      },
+       {
+        productName:'computer mouse',
+        defaultPrice:3
+      },
+       {
+        productName:'toy mouse',
+        defaultPrice:3
+      },
+       {
+        productName:'toy car',
         defaultPrice:3
       }
     ]
@@ -47,13 +76,8 @@ class IndexComponent extends Component {
 
     return (
       <section>
-        <h2>react-webpack-boilerplate</h2>
-        <ul ref="indexList" className="index-list">
-          {this.props.items.map((item, index) => {
-            return (<li key={index}>item {item}</li>);
-          })}
-        </ul>
-        <Checkbox />
+        <h2>Click to add Invoice</h2>
+       <h4>(you will need to click exit or another action to leave each box you open)</h4>
         <div></div>
         {this.state.invoices.map(function(invoice,index){
           return (

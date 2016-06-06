@@ -19,8 +19,10 @@ class Invoice extends Component {
         customerName:"",
         invoiceNumber:'',
         lineitems:[]
-      }
+      },
+      date:'2016-06-05'
     })
+
   }
   
   // getInitialState() {
@@ -46,15 +48,16 @@ class Invoice extends Component {
   resetInvoiceState(){
     console.log('pjpj123',this)
     this.setState({
-    name:'Hello!',
+    // name:'Hello!',
     
    
-    invoiceInfo:{
-      customerName:"",
-      invoiceNumber:'',
-      lineitems:[]
-      }
-    })
+    // invoiceInfo:{
+    //   customerName:"",
+    //   invoiceNumber:'',
+    //   lineitems:[]
+    //   },
+    //   date:'2016-06-05'
+   })
     console.log('pjpj1234',this)
 
   }
@@ -66,9 +69,11 @@ class Invoice extends Component {
     };
      document.getElementById('exit').onclick = function() {
         dialog.close();
+
     };
      document.getElementById('addInvoice').onclick = function() {
         dialog.close();
+      
     };
   }
   handleNameChange(event) {
@@ -89,7 +94,7 @@ class Invoice extends Component {
 
     console.log('submit',event)
     console.log('this',this)
-    this.props.addInvoice.call(this.props.that,this.state.invoiceInfo)
+    this.props.addInvoice.call(this.props.that,this.state.invoiceInfo,this.state.date)
     //this.resetInvoiceState()
   }
   handleShowDialog(event){
@@ -120,6 +125,10 @@ class Invoice extends Component {
         lineitems:this.state.invoiceInfo.lineitems
       }
     })
+  }
+  handleDateChange(event){
+    console.log('dateChange',event.target.value)
+    this.setState({date:event.target.value})
   }
 
   changeLineitemQuantity(quantity,index){
@@ -166,14 +175,22 @@ class Invoice extends Component {
           value={this.state.invoiceInfo.customerName}
           onChange={this.handleNameChange.bind(this)}
         />
+        <div> Date:
+          <input
+            type = 'date'
+            defaultValue = '2016-06-05'
+            value = {this.state.date}
+            onChange = {this.handleDateChange.bind(this)}
+          />
+        </div>
         <div>Invoice Number:
-        <input
-          type="text"
-          value={this.state.invoiceInfo.invoiceNumber}
-          defaultValue = {this.state.invoiceInfo.invoiceNumber}
-          lable = 'Invoice Number:'
-          onChange={this.handleInvoiceNumberChange.bind(this)}
-        />
+          <input
+            type="text"
+            value={this.state.invoiceInfo.invoiceNumber}
+            defaultValue = {this.state.invoiceInfo.invoiceNumber}
+            lable = 'Invoice Number:'
+            onChange={this.handleInvoiceNumberChange.bind(this)}
+          />
         </div>
         <div>
           <Search products = {this.props.products} 

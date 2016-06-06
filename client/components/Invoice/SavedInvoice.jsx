@@ -36,10 +36,15 @@ class SavedInvoice extends Component {
           <span>
             {this.props.invoice.customerName}
           </span>
+          <div>date:
+            <span>
+              {this.props.invoice.date}
+            </span>
+          </div>
           <div>Invoice Number:
-          <span>
-            {this.props.invoice.invoiceNumber}
-          </span>
+            <span>
+              {this.props.invoice.invoiceNumber}
+            </span>
           </div>
             <div>
                 <h3>Hello World!</h3>
